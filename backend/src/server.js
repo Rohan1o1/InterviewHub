@@ -1,6 +1,7 @@
 import express from 'express';
 import {ENV} from './lib/env.js';
 import path from 'path';
+import { connectDB } from './lib/db.js';
 
 const app = express();
 
@@ -23,4 +24,7 @@ if(ENV.NODE_ENV ==="production"){
 });
 }
 
- app.listen(ENV.PORT,()=> console.log("Server running on port 3000"));
+ app.listen(ENV.PORT,()=>{
+console.log("Server running on port 3000",ENV.port)
+connectDB();
+ } );
