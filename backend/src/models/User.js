@@ -15,7 +15,7 @@ import mongoose from "mongoose";
         type:String,
         default:""
     },
-    clerkid:{
+    clerkId:{
         type:String,
         required:true,
         unique:true,
