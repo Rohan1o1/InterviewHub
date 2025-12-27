@@ -1,9 +1,9 @@
 import {Inngest}from "inngest";
 import { connectDB } from "./db.js";
-import User from "../models/User.jsn";
+import User from "../models/User.js";
 
 export const inngest = new Inngest({ id: "interviewHub" });
-const syncUser = inngest .createFunction(
+const syncUser = inngest.createFunction(
     {id: "sync/user"},
     {event:"clerk/user.created"},
     async({event})=>{
@@ -21,7 +21,7 @@ const syncUser = inngest .createFunction(
     }
 )
 
-const deleteUserFromDB = inngets .createFunction(
+const deleteUserFromDB = inngest.createFunction(
     {id: "delete-user-from-db"},
     {event:"clerk/user.deleted"},
     async({event})=>{
