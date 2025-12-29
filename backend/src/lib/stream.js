@@ -1,4 +1,4 @@
-import {streamChat} from "stream-chat";
+import { StreamChat } from "stream-chat";
  import {ENV} from "./env.js"
 
  const apiKey = ENV.STREAM_API_KEY;
@@ -7,7 +7,7 @@ import {streamChat} from "stream-chat";
     console.log("stream api ker or stream api secret is missing");
 
  }
-  export const chatClient  = streamChat.getInstance(apiKey,apiSecret);
+  export const chatClient  = StreamChat.getInstance(apiKey,apiSecret);
    export const upsertSteamUser = async(userData)=>{
     try{
         await chatClient.upsertUser(userData);
