@@ -8,7 +8,7 @@ import { StreamChat } from "stream-chat";
 
  }
   export const chatClient  = StreamChat.getInstance(apiKey,apiSecret);
-   export const upsertSteamUser = async(userData)=>{
+   export const upsertStreamUser = async(userData)=>{
     try{
         await chatClient.upsertUser(userData);
         console.log("stream user upserted successfully",userData);
