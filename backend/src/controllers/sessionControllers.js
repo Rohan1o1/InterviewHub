@@ -24,7 +24,7 @@ export async function createSession(req,res){
             },
         });
         // chat messging
-        chatClient.channel("messaging",callId,{
+       const channel= chatClient.channel("messaging",callId,{
             name:`${problem}Session`,
             members:[clerkId]
         })
@@ -55,6 +55,7 @@ res.status(200).json({sessions});
 export async function getMyRecentSession(req,res){
     try {
         // get session where user is host or participant
+        const userId = req.user._id;
        const sessions = await Session.find({
             status:"completed",
             $or:[{host:userId},{participant:userId}],
@@ -72,7 +73,7 @@ export async function getMyRecentSession(req,res){
 
 export async function getSessionById(req,res){
     try {
-        const {id} = request.params 
+        const {id} = req.params 
         const session = await Session.findById(id)
         .populate("host","name profileImage email clerkId")
         .populate("participant","name profileImage email clerkId");
@@ -100,7 +101,7 @@ export async function endSession(req,res){
     }
     //check if session is already completed
     if(session.status === "completed"){
-        res.status(400).json({message:"Session is already completed"});
+        return res.status(400).json({message:"Session is already completed"});
    }
    
    // end stream video call
@@ -132,7 +133,7 @@ export async function joinSession(req,res){
           const session = await Session.findById(id);
           if(!session)return res.status(404).json({message:"Session not found"});
 
-          if(session!== "active"){
+          if(session.status!== "active"){
             return res.status(400).json({message:"Cannot join a completed session"});
           }
           if(session.host.toString() === userId.toString()){
